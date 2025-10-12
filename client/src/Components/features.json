@@ -1,0 +1,45 @@
+
+[
+  {
+    "title": "End-to-End Encrypted",
+    "description": "Your files are encrypted before leaving your device",
+    "icon": "Lock",
+    "iconColor": "text-blue-600",
+    "bgColor": "bg-blue-100"
+  },
+  {
+    "title": "Lightning Fast",
+    "description": "Direct peer-to-peer connection for maximum speed",
+    "icon": "Zap",
+    "iconColor": "text-blue-600",
+    "bgColor": "bg-blue-100"
+  },
+  {
+    "title": "No Registration",
+    "description": "Start sharing instantly without creating an account",
+    "icon": "Shield",
+    "iconColor": "text-blue-600",
+    "bgColor": "bg-blue-100"
+  },
+  {
+    "title": "No Cloud Needed",
+    "description": "Files are sent directly, no cloud storage involved",
+    "icon": "CloudOff",
+    "iconColor": "text-blue-600",
+    "bgColor": "bg-blue-100"
+  },
+  {
+    "title": "Cross-Platform",
+    "description": "Share files between devices seamlessly, no matter the platform",
+    "icon": "Link2",
+    "iconColor": "text-blue-600",
+    "bgColor": "bg-blue-100"
+  },
+  {
+    "title": "Fast & Reliable",
+    "description": "Transfers resume automatically if interrupted, ensuring reliability",
+    "icon": "Clock",
+    "iconColor": "text-blue-600",
+    "bgColor": "bg-blue-100"
+  }
+]
