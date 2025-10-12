@@ -1,14 +1,15 @@
 import React from "react"
+import Approute from "./Route/Approute"
 
 function App() {
   
   return (
     <>
     <div>
-     <h1 className="text-red-500">P2P Connection</h1>
+  <Approute />
     </div>
-    </>
-  )
+    </>   
+  )     
 }
 
 export default App
