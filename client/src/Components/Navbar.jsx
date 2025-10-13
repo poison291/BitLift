@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
-    <nav className="shadow-xl px-8 py-3 flex items-center justify-between sticky">
+    <nav className="shadow-xl px-8 py-3 bg-white flex items-center justify-between sticky top-0">
      
       <div className="flex items-center space-x-2">
-        <Share2 className="text-[#4f46e5]" />
+        <Share2 className="text-primary " />
         <h1 className="text-2xl font-bold">Peer Cast</h1>
       </div>
 
