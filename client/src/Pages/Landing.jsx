@@ -30,8 +30,8 @@ const Landing = () => {
               <strong> never</strong> touches our cloud storage.
             </p>
 
-            <button className="bg-primary inline-flex items-center hover:bg-purple-600  transition-colors cursor-pointer gap-2 text-xl font-semibold text-white px-6 py-3 rounded-xl mt-10">
-              Start Sharing Now{" "}
+            <button  onClick={shareButtonHandle} className="bg-primary inline-flex items-center hover:bg-purple-600  transition-colors cursor-pointer gap-2 text-xl font-semibold text-white px-6 py-3 rounded-xl mt-10">
+              Start Sharing Now
               <ArrowRight className="mt-1 font-bold" size={20} />
             </button>
           </div>

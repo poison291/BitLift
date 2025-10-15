@@ -1,31 +1,42 @@
 import express from "express";
-import { WebSocketServer } from "ws";
+import cors from "cors";
+import http from "http";
+
+import { Server } from "socket.io";
+import { join } from "path";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const server = http.createServer(app)
 
-const server = app.listen(PORT, () => {
-  console.log(`Signaling server running on http://localhost:${PORT}`);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"]
+  }
 });
 
-const webSocketServer = new WebSocketServer({ server });
-const room = {};
+const rooms = new Map()
 
-webSocketServer.on("connection", (ws) => {
-  console.log(`🟢 New Client Connected`);
+// Joining connection in romm with socket 
+io.on('connection', (socket) => {
+  console.log('socket connected', socket.id)
 
-  let roomID;
+  socket.on('join', (room) => {
+    socket.join(room)
+  })
 
-  ws.on("message", (message) => {
-    const data = JSON.parse(message);
-    console.log(data);
+  // signalling the data
+  socket.on('signal', (payload) => {
+      const {room, type, data} = payload;
+      socket.to(room).emit('signal', {type, data})
+  })
 
-    if (data.type === "join") {
-      roomID = data.room;
-      if (!room[roomID]) room[roomID] = [];
-      room[roomID].push(ws);
-      console.log(`🟣 Client joined room: ${roomID}`);
-      return;
-    }
-  });
+  socket.on('disconnect', () => {
+    console.log('Socket discconected', socket.id)
+  })
 });
+
+
+server.listen(3000, () => {
+  console.log(`signalling server runnning on http://localhost:3000`)
+})
