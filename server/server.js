@@ -1,9 +1,7 @@
 import express from "express";
 import cors from "cors";
-import http from "http";
-
+import http from "http"; 
 import { Server } from "socket.io";
-import { join } from "path";
 
 const app = express();
 const server = http.createServer(app)
@@ -36,7 +34,6 @@ io.on('connection', (socket) => {
   })
 });
 
-
 server.listen(3000, () => {
   console.log(`signalling server runnning on http://localhost:3000`)
-})
+}) 

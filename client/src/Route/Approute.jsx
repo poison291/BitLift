@@ -23,7 +23,7 @@ const Approute = () => {
     {
       path: "/share/:roomId",
       element: <Receive/>
-    }
+    },
   ]);
   return <RouterProvider router={router} />;
 };
