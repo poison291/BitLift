@@ -1,12 +1,12 @@
 import React from "react"
-import Approute from "./Route/Approute"
+import LaunchingSoon from "./Pages/LaunchingSoon"
 
 function App() {
   
   return (
     <>
     <div>
-  <Approute />
+  <LaunchingSoon/>
     </div>
     </>   
   )     
