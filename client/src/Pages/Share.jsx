@@ -2,13 +2,23 @@ import React from "react";
 import Navbar from "../Components/Navbar";
 import { io } from "socket.io-client";
 import { useRef, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const Share = () => {
   const [file, setFile] = useState(null);
   const [roomId, setroomId] = useState(null);
 
-  const navigate = useNavigate();
+  const socketRef = useRef();
+  useEffect(() => {
+    socketRef.current = io("http://localhost:3000");
+
+    return () => socketRef.current.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (roomId) {
+      socketRef.current.emit("joinRoom", roomId);
+    }
+  }, [roomId]);
 
   const handleGenartelink = () => {
     if (!file) return;
@@ -21,8 +31,7 @@ const Share = () => {
 
     const id = Math.random().toString(36).substring(2, 10);
     setroomId(id);
-
-  
+    console.log(id);
   };
   return (
     <>
@@ -76,7 +85,6 @@ const Share = () => {
               Create Share Link
             </button>
           )}
-      
         </div>
       </main>
     </>

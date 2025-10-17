@@ -5,34 +5,27 @@ import { Server } from "socket.io";
 
 const app = express();
 const server = http.createServer(app)
-
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST"]
+    origin: ["http://localhost:5173"]
   }
-});
+})
 
 const rooms = new Map()
 
-// Joining connection in romm with socket 
+// Joining connection in room with socket 
 io.on('connection', (socket) => {
-  console.log('socket connected', socket.id)
+  console.log(`A new user connected with ${socket.id}`)
 
-  socket.on('join', (room) => {
-    socket.join(room)
-  })
+  socket.on("joinRoom", (roomId) => {
+    console.log(`User roomId: ${roomId}`)
+  }) 
 
-  // signalling the data
-  socket.on('signal', (payload) => {
-      const {room, type, data} = payload;
-      socket.to(room).emit('signal', {type, data})
+  socket.on("disconnect", () => {
+    console.log(`A user disconnected with: ${socket.id}`)
   })
+})
 
-  socket.on('disconnect', () => {
-    console.log('Socket discconected', socket.id)
-  })
-});
 
 server.listen(3000, () => {
   console.log(`signalling server runnning on http://localhost:3000`)
