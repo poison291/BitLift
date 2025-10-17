@@ -3,7 +3,7 @@ import { Clock, ArrowRight } from "lucide-react";
 
 const LaunchingSoon = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white px-6 text-gray-900 relative overflow-hidden">
+    <div className="min-h-screen select-none flex flex-col items-center justify-center bg-white px-6 text-gray-900 relative overflow-hidden">
 
       <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] bg-purple-50 rounded-full opacity-40 -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
 
