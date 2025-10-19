@@ -8,7 +8,7 @@ const Receive = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io("http://localhost:3000");
+    socketRef.current = io("https://sharika-unchipped-allonymously.ngrok-free.dev/");
 
     // Join the room
     if (roomId) {
