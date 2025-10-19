@@ -7,14 +7,9 @@ const Share = () => {
   const [roomId, setRoomId] = useState(null);
 
   const socketRef = useRef();
-
-  const SERVER_URL =
-    process.env.NODE_ENV === "production"
-      ? "https://sharika-unchipped-allonymously.ngrok-free.dev/" // replace with your deployed backend URL
-      : "http://localhost:3000";
-
+// https://sharika-unchipped-allonymously.ngrok-free.dev/
   useEffect(() => {
-    socketRef.current = io(SERVER_URL, { transports: ["websocket"] });
+    socketRef.current = io("https://sharika-unchipped-allonymously.ngrok-free.dev/");
     return () => socketRef.current.disconnect();
   }, []);
 
@@ -49,25 +44,6 @@ const Share = () => {
     reader.readAsArrayBuffer(file);
   };
 
-  useEffect(() => {
-    socketRef.current.on("receiveFile", (file) => {
-      const blob = new Blob([file.data], { type: file.type });
-      const url = URL.createObjectURL(blob);
-      console.log("Received file URL:", url);
-
-      // Optional: automatically download
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = file.name;
-      a.click();
-      URL.revokeObjectURL(url);
-    });
-  }, []);
-
-  const CLIENT_URL =
-    process.env.NODE_ENV === "production"
-      ? window.location.origin
-      : "http://localhost:5173";
 
   return (
     <>
@@ -105,9 +81,9 @@ const Share = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-indigo-600 break-all"
-                href={`${CLIENT_URL}/share/${roomId}`}
+                href={`http://localhost:5173/share/${roomId}`}
               >
-                {CLIENT_URL}/share/{roomId}
+                http://localhost:5173/share/{roomId}
               </a>
             </div>
           )}

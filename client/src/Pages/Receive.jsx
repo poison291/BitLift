@@ -7,8 +7,9 @@ const Receive = () => {
   const { roomId } = useParams();
   const socketRef = useRef();
 
+  // https://sharika-unchipped-allonymously.ngrok-free.dev/
   useEffect(() => {
-    socketRef.current = io("https://sharika-unchipped-allonymously.ngrok-free.dev/");
+    socketRef.current = io("https://sharika-unchipped-allonymously.ngrok-free.dev/"); //BackEnd Host Url
 
     // Join the room
     if (roomId) {
@@ -16,20 +17,18 @@ const Receive = () => {
     }
 
     // Listen for incoming files
-   socketRef.current.on("receiveFile", (file) => {
-  const uint8Array = new Uint8Array(file.data); // convert back
-  const blob = new Blob([uint8Array], { type: file.type });
-  const url = URL.createObjectURL(blob);
+    socketRef.current.on("receiveFile", (file) => {
+      console.log("Received file:", file.name, file.size);
 
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = file.name;
-  a.click();
-  URL.revokeObjectURL(url);
-
-  console.log("Received file:", file.name, file.data.length);
-});
-
+      // Optional: auto-download
+      const blob = new Blob([file.data], { type: file.type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = file.name;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
 
     return () => {
       socketRef.current.disconnect();
