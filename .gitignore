@@ -1,0 +1,11 @@
+# Root .gitignore
+node_modules/
+.env
+.zed/
+dist/
+build/
+
+# If you have a client folder
+client/node_modules/
+client/.env
+client/build/
