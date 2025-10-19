@@ -16,18 +16,20 @@ const Receive = () => {
     }
 
     // Listen for incoming files
-    socketRef.current.on("receiveFile", (file) => {
-      console.log("Received file:", file.name, file.size);
+   socketRef.current.on("receiveFile", (file) => {
+  const uint8Array = new Uint8Array(file.data); // convert back
+  const blob = new Blob([uint8Array], { type: file.type });
+  const url = URL.createObjectURL(blob);
 
-      // Optional: auto-download
-      const blob = new Blob([file.data], { type: file.type });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = file.name;
-      a.click();
-      URL.revokeObjectURL(url);
-    });
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = file.name;
+  a.click();
+  URL.revokeObjectURL(url);
+
+  console.log("Received file:", file.name, file.data.length);
+});
+
 
     return () => {
       socketRef.current.disconnect();
