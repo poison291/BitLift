@@ -32,12 +32,14 @@ const Features = () => {
     },
     {
       title: "Cross-Platform",
-      description: "Share files between devices seamlessly, no matter the platform",
+      description:
+        "Share files between devices seamlessly, no matter the platform",
       icon: <MonitorSmartphone />,
     },
     {
       title: "Fast & Reliable",
-      description: "Transfers resume automatically if interrupted, ensuring reliability",
+      description:
+        "Transfers resume automatically if interrupted, ensuring reliability",
       icon: <PlugZap />,
     },
   ];

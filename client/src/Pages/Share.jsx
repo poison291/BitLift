@@ -10,7 +10,6 @@ const Share = () => {
   const socketRef = useRef();
   useEffect(() => {
     socketRef.current = io("http://localhost:3000");
-
     return () => socketRef.current.disconnect();
   }, []);
 
@@ -23,16 +22,28 @@ const Share = () => {
   const handleGenartelink = () => {
     if (!file) return;
 
-    const fileData = {
-      name: file.name,
-      type: file.type || "Unknown",
-      size: (file.size / 1024 / 1024).toFixed(2) + "MB",
-    };
-
     const id = Math.random().toString(36).substring(2, 10);
     setroomId(id);
-    console.log(id);
+    console.log(`Room Id from Client: ${id} `);
   };
+  
+  const handleSendFile = () => {
+      if (!roomId || !file) return;
+      
+      const reader = new FileReader()
+      reader.onload = (e) => {
+          const fileData = e.target.result;
+          socketRef.current.emit("sendFile", {
+              roomId,
+              file: {
+                  name: file.name,
+                  type: file.type,
+                  data: fileData
+              }
+          })
+      }
+      reader.readAsArrayBuffer(file)
+  }
   return (
     <>
       <Navbar />
@@ -53,6 +64,7 @@ const Share = () => {
               <p>
                 <strong>Name:</strong> {file.name}
               </p>
+              
               <p>
                 <strong>Type:</strong> {file.type || "Unknown"}
               </p>
@@ -67,9 +79,9 @@ const Share = () => {
               <a
                 target="_blank"
                 className="text-indigo-600 break-all"
-                href={`http://localhost:5174/share/${roomId}`}
+                href={`http://localhost:5173/share/${roomId}`}
               >
-                http://localhost:5174/share/{roomId}
+                http://localhost:5173/share/{roomId}
               </a>
             </div>
           )}
@@ -85,6 +97,15 @@ const Share = () => {
               Create Share Link
             </button>
           )}
+          {roomId && file && (
+            <button
+              onClick={handleSendFile}
+              className="mt-4 px-4 py-2 rounded bg-green-600 text-white font-semibold hover:bg-green-700"
+            >
+              Send File
+            </button>
+          )}
+
         </div>
       </main>
     </>

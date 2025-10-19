@@ -5,13 +5,11 @@ import Features from "../Components/Features";
 import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-
-  const shareButtonHandle =  () =>  {
-    navigate('/share')
-  }
-
+  const shareButtonHandle = () => {
+    navigate("/share");
+  };
 
   return (
     <>
@@ -20,7 +18,8 @@ const Landing = () => {
         <div className="flex items-center justify-center mt-20 px-8">
           <div className="text-center max-w-4xl select-none">
             <h1 className="text-6xl font-bold">
-              The <span className="text-primary">Private </span>Way
+              The <span className="text-primary">Private </span>
+              Way
             </h1>
             <h1 className="text-6xl font-bold">To Send Files.</h1>
 
@@ -30,7 +29,10 @@ const Landing = () => {
               <strong> never</strong> touches our cloud storage.
             </p>
 
-            <button  onClick={shareButtonHandle} className="bg-primary inline-flex items-center hover:bg-purple-600  transition-colors cursor-pointer gap-2 text-xl font-semibold text-white px-6 py-3 rounded-xl mt-10">
+            <button
+              onClick={shareButtonHandle}
+              className="bg-primary inline-flex items-center hover:bg-purple-600  transition-colors cursor-pointer gap-2 text-xl font-semibold text-white px-6 py-3 rounded-xl mt-10"
+            >
               Start Sharing Now
               <ArrowRight className="mt-1 font-bold" size={20} />
             </button>
@@ -49,13 +51,13 @@ const Landing = () => {
             </span>
           </div>
 
-           <div className="flex flex-col items-center bg-white p-4 shadow-xl rounded-2xl ">
+          <div className="flex flex-col items-center bg-white p-4 shadow-xl rounded-2xl ">
             <span className="text-2xl font-bold">24/7</span>
             <span className="text-gray-600 text-xl font-semibold">Support</span>
           </div>
         </div>
         <Flow />
-        <Features  />
+        <Features />
       </div>
     </>
   );
