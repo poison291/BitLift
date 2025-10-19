@@ -41,5 +41,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(3000, () => {
-  console.log(`🚀 Signalling server runnning on http://localhost:3000`);
+  console.log(`🚀 Signalling server runnning on https://bitlift-1.onrender.com/`);
 });
