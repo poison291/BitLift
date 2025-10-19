@@ -31,24 +31,23 @@ const Share = () => {
     console.log(`Room Id from Client: ${id}`);
   };
 
- const handleSendFile = () => {
-  if (!roomId || !file) return;
+  const handleSendFile = () => {
+    if (!roomId || !file) return;
 
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const arrayBuffer = e.target.result;
-    const uint8Array = new Uint8Array(arrayBuffer); // convert to Uint8Array
-    socketRef.current.emit("sendFile", {
-      roomId,
-      file: {
-        name: file.name,
-        type: file.type,
-        data: Array.from(uint8Array), // convert to regular array for JSON
-      },
-    });
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const fileData = e.target.result;
+      socketRef.current.emit("sendFile", {
+        roomId,
+        file: {
+          name: file.name,
+          type: file.type,
+          data: fileData,
+        },
+      });
+    };
+    reader.readAsArrayBuffer(file);
   };
-  reader.readAsArrayBuffer(file);
-};
 
   useEffect(() => {
     socketRef.current.on("receiveFile", (file) => {
