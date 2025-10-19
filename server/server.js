@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
-import { SocketAddress } from "net";
 
 const app = express();
 const server = http.createServer(app);
@@ -10,24 +9,33 @@ const io = new Server(server, {
   cors: {
     origin: ["http://localhost:5173"],
   },
+  maxHttpBufferSize: 300 * 1024 * 1024,
 });
 
 const rooms = new Map();
 
 // Joining connection in room with socket
 io.on("connection", (socket) => {
-  console.log(`A new user connected with ${socket.id}`);
+  console.log(`🟢 Client Connected: ${socket.id}`);
 
+  // Joining the client to the room
   socket.on("joinRoom", (roomId) => {
-    console.log(`Socket ${socket.id} Joining Room: ${roomId}`);
+    socket.join(roomId)
+    console.log(`🔵 Client Joined Room: ${roomId}`)
     socket.emit("RoomId", roomId);
   });
-  
+
+  //Listen For File Sent
+  socket.on("sendFile", ({roomId, file}) => {
+    console.log(`📥 Received file ${file.name} in Room: ${roomId}`)
+    socket.to(roomId).emit("receiveFile", file)
+  })
+
   socket.on("disconnect", () => {
-    console.log(`A user disconnected with: ${socket.id}`);
+    console.log(`🔴 Client disconnected:: ${socket.id}`);
   });
 });
 
 server.listen(3000, () => {
-  console.log(`signalling server runnning on http://localhost:3000`);
+  console.log(`🚀 Signalling server runnning on http://localhost:3000`);
 });

@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
 import { io } from "socket.io-client";
-import { useRef, useEffect, useState } from "react";
 
 const Share = () => {
   const [file, setFile] = useState(null);
-  const [roomId, setroomId] = useState(null);
+  const [roomId, setRoomId] = useState(null);
 
   const socketRef = useRef();
+
   useEffect(() => {
     socketRef.current = io("http://localhost:3000");
     return () => socketRef.current.disconnect();
@@ -19,31 +19,49 @@ const Share = () => {
     }
   }, [roomId]);
 
-  const handleGenartelink = () => {
+  const handleGenerateLink = () => {
     if (!file) return;
-
     const id = Math.random().toString(36).substring(2, 10);
-    setroomId(id);
-    console.log(`Room Id from Client: ${id} `);
+    setRoomId(id);
+    console.log(`Room Id from Client: ${id}`);
   };
-  
+
   const handleSendFile = () => {
-      if (!roomId || !file) return;
-      
-      const reader = new FileReader()
-      reader.onload = (e) => {
-          const fileData = e.target.result;
-          socketRef.current.emit("sendFile", {
-              roomId,
-              file: {
-                  name: file.name,
-                  type: file.type,
-                  data: fileData
-              }
-          })
-      }
-      reader.readAsArrayBuffer(file)
-  }
+    if (!roomId || !file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const fileData = e.target.result;
+      socketRef.current.emit("sendFile", {
+        roomId,
+        file: {
+          name: file.name,
+          type: file.type,
+          data: fileData,
+        },
+      });
+    };
+    reader.readAsArrayBuffer(file);
+  };
+
+  useEffect(() => {
+   socketRef.current.on("receiveFile", (file) => {
+  const blob = new Blob([file.data], { type: file.type });
+  const url = URL.createObjectURL(blob);
+  console.log("Received file URL:", url);
+
+  // Optional: automatically download
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = file.name;
+  a.click();
+  URL.revokeObjectURL(url); // cleanup
+});
+
+
+  }, [])
+
+
   return (
     <>
       <Navbar />
@@ -52,10 +70,10 @@ const Share = () => {
           <h1 className="text-2xl font-bold mb-4">Share a File</h1>
           <input
             type="file"
-            className="border  p-2 rounded"
+            className="border p-2 rounded"
             onChange={(e) => {
               setFile(e.target.files[0]);
-              setroomId(null);
+              setRoomId(null);
             }}
           />
 
@@ -64,7 +82,6 @@ const Share = () => {
               <p>
                 <strong>Name:</strong> {file.name}
               </p>
-              
               <p>
                 <strong>Type:</strong> {file.type || "Unknown"}
               </p>
@@ -73,11 +90,13 @@ const Share = () => {
               </p>
             </div>
           )}
+
           {roomId && (
             <div className="mt-4 p-3 border rounded bg-gray-50">
               <h2 className="font-semibold text-gray-800">Your share link:</h2>
               <a
                 target="_blank"
+                rel="noopener noreferrer"
                 className="text-indigo-600 break-all"
                 href={`http://localhost:5173/share/${roomId}`}
               >
@@ -88,7 +107,7 @@ const Share = () => {
 
           {!roomId && file && (
             <button
-              onClick={handleGenartelink}
+              onClick={handleGenerateLink}
               disabled={!file}
               className={`mt-4 px-4 py-2 rounded bg-indigo-600 text-white font-semibold ${
                 !file ? "opacity-50 cursor-not-allowed" : "hover:bg-indigo-700"
@@ -97,6 +116,7 @@ const Share = () => {
               Create Share Link
             </button>
           )}
+
           {roomId && file && (
             <button
               onClick={handleSendFile}
@@ -105,7 +125,6 @@ const Share = () => {
               Send File
             </button>
           )}
-
         </div>
       </main>
     </>
