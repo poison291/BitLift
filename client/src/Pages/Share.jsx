@@ -1,29 +1,27 @@
 import React, { useRef, useEffect, useState } from "react";
 import Navbar from "../Components/Navbar";
 import { io } from "socket.io-client";
+import { BACKEND_URL, CLIENT_URL } from "../config/config";
 
 const Share = () => {
   const [file, setFile] = useState(null);
   const [roomId, setRoomId] = useState(null);
-
   const socketRef = useRef();
-// https://sharika-unchipped-allonymously.ngrok-free.dev/
+
   useEffect(() => {
-    socketRef.current = io("https://sharika-unchipped-allonymously.ngrok-free.dev/");
+    socketRef.current = io(BACKEND_URL, { transports: ["websocket"] });
     return () => socketRef.current.disconnect();
   }, []);
 
   useEffect(() => {
-    if (roomId) {
-      socketRef.current.emit("joinRoom", roomId);
-    }
+    if (roomId) socketRef.current.emit("joinRoom", roomId);
   }, [roomId]);
 
   const handleGenerateLink = () => {
     if (!file) return;
     const id = Math.random().toString(36).substring(2, 10);
     setRoomId(id);
-    console.log(`Room Id from Client: ${id}`);
+    console.log(`Room Id: ${id}`);
   };
 
   const handleSendFile = () => {
@@ -44,13 +42,13 @@ const Share = () => {
     reader.readAsArrayBuffer(file);
   };
 
-
   return (
     <>
       <Navbar />
       <main className="min-h-screen flex items-center justify-center">
         <div className="max-w-xl w-full p-6 bg-white rounded-2xl shadow-md">
           <h1 className="text-2xl font-bold mb-4">Share a File</h1>
+
           <input
             type="file"
             className="border p-2 rounded"
@@ -62,15 +60,9 @@ const Share = () => {
 
           {file && (
             <div className="mt-3 text-gray-700 text-sm border rounded p-3 bg-gray-50">
-              <p>
-                <strong>Name:</strong> {file.name}
-              </p>
-              <p>
-                <strong>Type:</strong> {file.type || "Unknown"}
-              </p>
-              <p>
-                <strong>Size:</strong> {(file.size / 1024 / 1024).toFixed(2)} MB
-              </p>
+              <p><strong>Name:</strong> {file.name}</p>
+              <p><strong>Type:</strong> {file.type || "Unknown"}</p>
+              <p><strong>Size:</strong> {(file.size / 1024 / 1024).toFixed(2)} MB</p>
             </div>
           )}
 
@@ -81,9 +73,9 @@ const Share = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-indigo-600 break-all"
-                href={`http://localhost:5173/share/${roomId}`}
+                href={`${CLIENT_URL}/share/${roomId}`}
               >
-                http://localhost:5173/share/{roomId}
+                {CLIENT_URL}/share/{roomId}
               </a>
             </div>
           )}
@@ -91,10 +83,7 @@ const Share = () => {
           {!roomId && file && (
             <button
               onClick={handleGenerateLink}
-              disabled={!file}
-              className={`mt-4 px-4 py-2 rounded bg-indigo-600 text-white font-semibold ${
-                !file ? "opacity-50 cursor-not-allowed" : "hover:bg-indigo-700"
-              }`}
+              className="mt-4 px-4 py-2 rounded bg-indigo-600 text-white font-semibold hover:bg-indigo-700"
             >
               Create Share Link
             </button>
