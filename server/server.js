@@ -27,7 +27,7 @@ io.on("connection", (socket) => {
     socket.join(roomId)
     console.log(`🔵 Client Joined Room: ${roomId}`)
     socket.emit("RoomId", roomId);
-  });
+  }); 
 
   //Listen For File Sent
   socket.on("sendFile", ({roomId, file}) => {

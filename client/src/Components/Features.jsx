@@ -48,7 +48,7 @@ const Features = () => {
 
   return (
     <>
-      <div className="mt-20 bg-gray-100 h-screen">
+      <div className="mt-20 bg-gray-100">
         <h1 className="text-center text-3xl font-semibold mb-10">
           Why Choose Us?
         </h1>

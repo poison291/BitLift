@@ -3,6 +3,7 @@ import Navbar from "../Components/Navbar";
 import Flow from "../Components/Flow";
 import Features from "../Components/Features";
 import { useNavigate } from "react-router-dom";
+import Footer from "../Components/Footer";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -58,11 +59,7 @@ const Landing = () => {
         </div>
         <Flow />
         <Features />
-        <h1> 3rd</h1>
-        <h1> 3rd</h1>
-        <h1> 3rd</h1>
-        <h1></h1>
-        <h1>test text</h1>
+        <Footer/>
       </div>
     </>
   );
