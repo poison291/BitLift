@@ -16,7 +16,6 @@ const io = new Server(server, {
   maxHttpBufferSize: 300 * 1024 * 1024,
 });
 
-const rooms = new Map();
 
 // Joining connection in room with socket
 io.on("connection", (socket) => {
@@ -25,14 +24,12 @@ io.on("connection", (socket) => {
   // Joining the client to the room
   socket.on("joinRoom", (roomId) => {
     socket.join(roomId)
-    console.log(`🔵 Client Joined Room: ${roomId}`)
+    console.log(`🔵 Socket: ${socket.id} Joined Room: ${roomId}`)
     socket.emit("RoomId", roomId);
-  }); 
+  });
 
-  //Listen For File Sent
-  socket.on("sendFile", ({roomId, file}) => {
-    console.log(`📥 Received file ${file.name} in Room: ${roomId}`)
-    socket.to(roomId).emit("receiveFile", file)
+  socket.on("signal", ({ targetedId, data}) => {
+    io.to(targetedId).emit("signal", { from: socket.id, data})
   })
 
   socket.on("disconnect", () => {

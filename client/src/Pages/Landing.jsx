@@ -59,7 +59,7 @@ const Landing = () => {
         </div>
         <Flow />
         <Features />
-        <Footer/>
+      <Footer/>
       </div>
     </>
   );
