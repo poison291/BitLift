@@ -6,8 +6,12 @@ import { BACKEND_URL, CLIENT_URL } from "../config/config";
 const Share = () => {
   const [file, setFile] = useState(null);
   const [roomId, setRoomId] = useState(null);
-  const socketRef = useRef();
 
+  const socketRef = useRef();
+  const peerConnection = useRef();
+  const dataChannel = useRef();
+
+  // Initializing socket connection
   useEffect(() => {
     socketRef.current = io(BACKEND_URL, { transports: ["websocket"] });
     return () => socketRef.current.disconnect();
@@ -26,20 +30,6 @@ const Share = () => {
 
   const handleSendFile = () => {
     if (!roomId || !file) return;
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const fileData = e.target.result;
-      socketRef.current.emit("sendFile", {
-        roomId,
-        file: {
-          name: file.name,
-          type: file.type,
-          data: fileData,
-        },
-      });
-    };
-    reader.readAsArrayBuffer(file);
   };
 
   return (
@@ -60,9 +50,15 @@ const Share = () => {
 
           {file && (
             <div className="mt-3 text-gray-700 text-sm border rounded p-3 bg-gray-50">
-              <p><strong>Name:</strong> {file.name}</p>
-              <p><strong>Type:</strong> {file.type || "Unknown"}</p>
-              <p><strong>Size:</strong> {(file.size / 1024 / 1024).toFixed(2)} MB</p>
+              <p>
+                <strong>Name:</strong> {file.name}
+              </p>
+              <p>
+                <strong>Type:</strong> {file.type || "Unknown"}
+              </p>
+              <p>
+                <strong>Size:</strong> {(file.size / 1024 / 1024).toFixed(2)} MB
+              </p>
             </div>
           )}
 
