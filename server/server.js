@@ -28,9 +28,6 @@ io.on("connection", (socket) => {
     socket.emit("RoomId", roomId);
   });
 
-  socket.on("signal", ({ targetedId, data}) => {
-    io.to(targetedId).emit("signal", { from: socket.id, data})
-  })
 
   socket.on("disconnect", () => {
     console.log(`🔴 Client disconnected:: ${socket.id}`);

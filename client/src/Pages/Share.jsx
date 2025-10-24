@@ -7,9 +7,7 @@ const Share = () => {
   const [file, setFile] = useState(null);
   const [roomId, setRoomId] = useState(null);
 
-  const socketRef = useRef();
-  const peerConnection = useRef();
-  const dataChannel = useRef();
+  const socketRef = useRef()
 
   // Initializing socket connection
   useEffect(() => {
@@ -26,10 +24,6 @@ const Share = () => {
     const id = Math.random().toString(36).substring(2, 10);
     setRoomId(id);
     console.log(`Room Id: ${id}`);
-  };
-
-  const handleSendFile = () => {
-    if (!roomId || !file) return;
   };
 
   return (
@@ -87,10 +81,10 @@ const Share = () => {
 
           {roomId && file && (
             <button
-              onClick={handleSendFile}
+
               className="mt-4 px-4 cursor-pointer py-2 rounded bg-green-600 text-white font-semibold hover:bg-green-700"
             >
-              Send File
+              Stream File
             </button>
           )}
         </div>

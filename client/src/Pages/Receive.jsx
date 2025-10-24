@@ -14,22 +14,11 @@ const Receive = () => {
       socketRef.current.emit("joinRoom", roomId);
     }
 
-    socketRef.current.on("receiveFile", (file) => {
-      console.log("Received file:", file.name, file.size);
-      const blob = new Blob([file.data], { type: file.type });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = file.name;
-      a.click();
-      URL.revokeObjectURL(url);
-    });
-
     return () => socketRef.current.disconnect();
   }, [roomId]);
 
   return (
-    <div>
+    <div className="flex items-center justify-center">
       <h1>Receiving Files</h1>
       <p>Waiting for files in room: {roomId}</p>
     </div>
