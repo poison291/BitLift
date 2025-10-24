@@ -1,9 +1,8 @@
-[Sender selects file] → metadata only
+[Sender selects file] → only get file metadata
       |
 [Create Room → Peers join]
       |
-[Sender clicks "Send File" → chunks streamed via WebRTC]
+[Sender clicks "Stream File" → chunks streamed via WebRTC]
       |
 [Receiver collects chunks → assembles → download]
-      |
-[Optional: progress bar + resume if interrupted]
+
