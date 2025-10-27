@@ -14,15 +14,15 @@ const Landing = () => {
 
   return (
     <>
-      <div className="bg-gray-100 min-h-scree select-none ">
+      <div className="bg-gray-100 min-h-screen select-none ">
         <Navbar />
         <div className="flex items-center justify-center mt-20 px-8">
           <div className="text-center max-w-4xl select-none">
-            <h1 className="text-6xl font-bold">
+           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">
               The <span className="text-primary">Private </span>
               Way
             </h1>
-            <h1 className="text-6xl font-bold">To Send Files.</h1>
+           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold">To Send Files.</h1>
 
             <p className="text-xl font-normal mt-8 text-gray-700 max-w-2xl mx-auto">
               Transfer files peer-to-peer using direct connection. Your data is
@@ -39,21 +39,21 @@ const Landing = () => {
             </button>
           </div>
         </div>
-        <div className="flex mt-15 justify-center space-x-20 text-primary select-none">
-          <div className="flex flex-col items-center bg-white p-4 shadow-xl rounded-2xl ">
+        <div className="flex mt-16  justify-center space-x-20 text-primary select-none">
+          <div className="flex flex-col hover:shadow-2xl items-center bg-white p-6 shadow-xl rounded-2xl ">
             <span className="text-2xl font-bold">100%</span>
             <span className="text-gray-600 text-xl font-semibold">Private</span>
           </div>
 
-          <div className="flex flex-col items-center bg-white p-4 shadow-xl rounded-2xl ">
+          <div className="flex flex-col hover:shadow-2xl items-center bg-white p-6 shadow-xl rounded-2xl ">
             <span className="text-2xl font-bold">0</span>
             <span className="text-gray-600 text-xl font-semibold">
               Cloud Storage
             </span>
           </div>
 
-          <div className="flex flex-col items-center bg-white p-4 shadow-xl rounded-2xl ">
-            <span className="text-2xl font-bold">24/7</span>
+          <div className="flex flex-col hover:shadow-2xl items-center bg-white p-6 shadow-xl rounded-2xl ">
+            <span className="text-2xl  font-bold">24/7</span>
             <span className="text-gray-600 text-xl font-semibold">Support</span>
           </div>
         </div>
