@@ -40,8 +40,7 @@ const Features = () => {
     },
     {
       title: "Fast & Reliable",
-      description:
-        "Transfers resume automatically if interrupted, ensuring reliability",
+      description:"Transfers resume automatically if interrupted, ensuring reliability",
       icon: <PlugZap size={iconSize} className="text-primary" />,
     },
   ];
@@ -58,7 +57,7 @@ const Features = () => {
               key={index}
               className="bg-white p-8 rounded-2xl shadow-md hover:shadow-lg transition-all hover:-translate-y-2 "
             >
-              <div className="bg-purple-100 w-14 h-14 rounded-full flex items-center justify-center mb-4 text-purple-600">
+              <div className="bg-secondary w-14 h-14 rounded-full flex items-center justify-center mb-4">
                 {item.icon}
               </div>
               <div className="text-start">

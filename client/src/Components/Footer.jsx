@@ -6,9 +6,10 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
         {/* Brand Section */}
         <div>
-          <h1 className="text-2xl font-bold text-purple-400 mb-3">BitLift</h1>
+          <h1 className="text-2xl font-bold text-primary mb-3">BitLift</h1>
           <p className="text-sm leading-relaxed text-gray-400">
-            Seamless peer-to-peer file transfer — fast, private, and server-free.
+            Seamless peer-to-peer file transfer — fast, private, and
+            server-free.
           </p>
         </div>
 
@@ -22,7 +23,7 @@ const Footer = () => {
               <li key={link}>
                 <a
                   href="#"
-                  className="hover:text-purple-400 transition-colors duration-200"
+                  className="hover:text-primary-hover transition-colors duration-200"
                 >
                   {link}
                 </a>
@@ -40,7 +41,7 @@ const Footer = () => {
             <li>
               <a
                 href="mailto:susan.dev291@gmail.com"
-                className="hover:text-purple-400 transition-colors duration-200"
+                className="hover:text-primary-hover transition-colors duration-200"
               >
                 Email
               </a>
@@ -50,7 +51,7 @@ const Footer = () => {
                 href="https://github.com/poison291/BitLift"
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-purple-400 transition-colors duration-200"
+                className="hover:text-primary-hover transition-colors duration-200"
               >
                 GitHub
               </a>
@@ -61,7 +62,8 @@ const Footer = () => {
 
       {/* Divider */}
       <div className="border-t border-gray-800 mt-8 pt-4 text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} <span className="text-purple-400">BitLift</span>. All rights reserved.
+        © {new Date().getFullYear()}{" "}
+        <span className="text-primary">BitLift</span>. All rights reserved.
       </div>
     </footer>
   );
