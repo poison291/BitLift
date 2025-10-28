@@ -4,6 +4,7 @@ import Flow from "../Components/Flow";
 import Features from "../Components/Features";
 import { useNavigate } from "react-router-dom";
 import Footer from "../Components/Footer";
+import HowItWorks from "../Components/Steps";
 
 const Landing = () => {
   const navigate = useNavigate();
@@ -57,8 +58,16 @@ const Landing = () => {
             <span className="text-gray-600 text-xl font-semibold">Support</span>
           </div>
         </div>
+        {/* Flow Section */}
         <Flow />
+
+        {/* Features Section */}
         <Features />
+
+        {/* How it works? */}
+        <HowItWorks/>
+
+        {/* Footer Section */}
       <Footer/>
       </div>
     </>

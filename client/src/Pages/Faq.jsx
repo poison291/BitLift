@@ -9,7 +9,7 @@ const Faq = () => {
         <h1 className="text-3xl text-primary font-semibold text-center">
           🚧 FAQ UNDER CONSTRUCTION 🚧
         </h1>
-        <p className="text-gray-600 text-center">(now get the fk out)</p>
+        <p className="text-gray-600 text-center font-bold capitalize">(now get the fk out)</p>
       </div>
     </>
   );
