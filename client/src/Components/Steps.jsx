@@ -45,6 +45,7 @@ const HowItWorks = () => {
         ))}
       </div>
     </section>
+    
   );
 };
 
